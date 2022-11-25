@@ -7,8 +7,6 @@
     class GPIODATA
     {
         private:
-        os_timer_t btnPress;
-        bool btn_P {false} ;
 
         public:
         void initFunc();
