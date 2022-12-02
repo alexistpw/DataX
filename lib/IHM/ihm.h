@@ -1,15 +1,15 @@
 #ifndef _IHM_H_
     #define _IHM_H_
 
-    #define BTN_PIN 0 // D3 MCUpin
-    #define LED_WIFI 2 //  D4 MCUpin
+#include <Arduino.h>
 
-    class GPIODATA
-    {
-        private:
+#define BTN_GPIO 0 // D3 MCUpin
+#define LED_GPIO 2 //  D4 MCUpin
 
-        public:
-        void initFunc();
+static bool btn_P = false;
 
-    };
+void initFunc();
+void btnCB(void *tCall);
+void wifiLED(void *tCall);
+    
 #endif

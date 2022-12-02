@@ -1,53 +1,43 @@
-#include <Arduino.h>
 #include "user_interface.h"
 #include "ihm.h"
+#include "snsr.h"
 
 os_timer_t btnPress;
 os_timer_t wifiLight;
 os_timer_t sensorread;
 
-bool btn_P {false} ;
-
-void btnCB(void *tCall)
-{
-    btn_P = false;
-    
-    Serial.print("ESP RESTART!");
-    ESP.restart();
-}
-
-void wifiLED(void *tCall)
-{
-    digitalWrite(LED_WIFI, !digitalRead(LED_WIFI));
-}
-
-void snsrRead()
-{
-    
-}
+DataSnsr tsensor(snsr_T,0);
 
 void btnDetect()
 {
-    if ((!digitalRead(BTN_PIN)) && (!btn_P))
+    if ((!digitalRead(BTN_GPIO)) && (!btn_P))
     {
         os_timer_arm(&btnPress, 5000, true);
         btn_P = true;
     }
-    if (digitalRead(BTN_PIN)  && (btn_P))
+    if (digitalRead(BTN_GPIO)  && (btn_P))
     {
         os_timer_disarm(&btnPress);
         btn_P = false;
     }
 }
 
+void snsrRead(void *tCall)
+{
+    // tsensor.feedT_data(snsr_T);
+    // tsensor.displayT_data();
+}
+
 void setup() 
 {
-    GPIODATA GPD;
-    GPD.initFunc();
+
+    initFunc();
+
     os_timer_setfn(&btnPress, btnCB, NULL);
     os_timer_setfn(&wifiLight, wifiLED, NULL);
     os_timer_setfn(&sensorread, snsrRead, NULL);
     os_timer_arm(&wifiLight, 1000, true);
+    os_timer_arm(&sensorread, 1000, true);
     
 }
 

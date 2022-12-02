@@ -1,13 +1,26 @@
-#include <Arduino.h>
 #include "ihm.h"
 
     
-void GPIODATA::initFunc()
+void initFunc()
 {
     Serial.begin(115200);
-    pinMode(LED_WIFI, OUTPUT);
-    pinMode(BTN_PIN, INPUT_PULLUP);
+    pinMode(LED_GPIO, OUTPUT);
+    pinMode(BTN_GPIO, INPUT_PULLUP);
 }
+
+void btnCB(void *tCall)
+{
+    btn_P = false; 
+    Serial.print("ESP RESTART!");
+    ESP.restart();
+}
+
+void wifiLED(void *tCall)
+{
+    digitalWrite(LED_GPIO, !digitalRead(LED_GPIO));
+}
+
+
 
 
     
