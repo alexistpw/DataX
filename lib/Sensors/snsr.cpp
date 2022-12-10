@@ -1,8 +1,8 @@
 #include "snsr.h"
 
-//Construct
 
-DataSnsr::DataSnsr(DallasTemperature *s_T, uint8_t index): T_index{index}
+//Construct
+DataSnsr::DataSnsr(DallasTemperature *s_T, int index): T_index{index}
 {
     prt_T = s_T;
     prt_T->begin();
@@ -12,10 +12,10 @@ DataSnsr::DataSnsr(DallasTemperature *s_T, uint8_t index): T_index{index}
 }
 
 //Destruct
-// DataSnsr::~DataSnsr()
-// {
-//     delete prt_T;
-// }
+DataSnsr::~DataSnsr()
+{
+    delete prt_T;
+}
 
 //====================================================================
 //Methods

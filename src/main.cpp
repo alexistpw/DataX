@@ -6,7 +6,9 @@ os_timer_t btnPress;
 os_timer_t wifiLight;
 os_timer_t sensorread;
 
-DataSnsr tsensor(snsr_T,0);
+OneWire wire_T(TMP_GPIO);
+DallasTemperature snsr_T(&wire_T);
+DataSnsr tsensor(&snsr_T,0);
 
 void btnDetect()
 {
@@ -30,8 +32,9 @@ void snsrRead(void *tCall)
 
 void setup() 
 {
-
     initFunc();
+
+    snsr_T.begin();
 
     os_timer_setfn(&btnPress, btnCB, NULL);
     os_timer_setfn(&wifiLight, wifiLED, NULL);
