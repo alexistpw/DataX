@@ -26,8 +26,8 @@ void btnDetect()
 
 void snsrRead(void *tCall)
 {
-    // tsensor.feedT_data(snsr_T);
-    // tsensor.displayT_data();
+    tsensor.feedT_data();
+    tsensor.displayT_data();
 }
 
 void setup() 
